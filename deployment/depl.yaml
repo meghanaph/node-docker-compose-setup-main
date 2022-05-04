@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment 
+  labels:
+    app: nodejs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+    spec:
+      containers:
+      - name: nodejs
+        image: nodejs
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment 
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: node-docker-compose-setup-main_nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+
