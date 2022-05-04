@@ -1,0 +1,19 @@
+FROM nginx
+RUN apt-get update -y
+
+RUN apt-get install vim -y
+RUN apt-get install wget -y
+RUN apt-get install zip unzip -y
+
+
+RUN apt-get install -y supervisor
+
+
+COPY ./node.conf /etc/nginx/conf.d/
+COPY ./nginx/security/ /etc/nginx/security/
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+
+CMD ["nginx", "-g", "daemon off;"]
+
